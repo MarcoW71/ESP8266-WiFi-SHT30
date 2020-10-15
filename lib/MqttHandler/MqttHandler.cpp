@@ -72,7 +72,7 @@ void MqttHandler::handle(time_t timestamp)
     {
       client.loop();
 
-      if ( sht3xHandler.avgValuesAvailable && ( timestamp - intervalTimestamp ) >= 120000 )
+      if ( sht3xHandler.avgValuesAvailable && ( timestamp - intervalTimestamp ) >= 60000 )
       {
         intervalTimestamp = timestamp;
 
