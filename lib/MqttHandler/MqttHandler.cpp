@@ -72,7 +72,7 @@ void MqttHandler::handle(time_t timestamp)
     {
       client.loop();
 
-      if ( sht3xHandler.avgValuesAvailable && ( timestamp - intervalTimestamp ) >= 60000 )
+      if (( timestamp - intervalTimestamp ) >= 15000 )
       {
         intervalTimestamp = timestamp;
 
@@ -80,17 +80,10 @@ void MqttHandler::handle(time_t timestamp)
         time(&now);
 
         String message = "{";
-
-        message += "\"time\":";
-        message += now;
-        message += ",\"localTime\":";
-        message += "\"";
-        message += localTimeHandler.getLocalTimeText();
-        message += "\"";
-        message += ",\"avgTemperature\":";
-        message += sht3xHandler.avgCTemp;
-        message += ",\"avgHumidity\":";
-        message += sht3xHandler.avgHumidity;
+        message += "\"temperature_C\":";
+        message += sht3xHandler.cTemp;
+        message += ",\"humidity\":";
+        message += sht3xHandler.humidity;
         message += "}\r\n";
 
         sendValue(message.c_str());
